@@ -1,0 +1,43 @@
+def extract_links(html_content):
+    links = []
+    start_index = 0
+    while True:
+        # Find the start index of the next link
+        start_index = html_content.find('<a href="', start_index)
+        if start_index == -1:
+            break
+        
+        # Find the end index of the URL
+        end_index = html_content.find('"', start_index + 9)
+        if end_index == -1:
+            break
+        
+        # Extract the link and add it to the list
+        link = html_content[start_index + 9:end_index]
+        links.append(link)
+                # Move to the next position after the end of the current link
+        start_index = end_index
+        
+    return links
+
+# Example HTML content (you can replace this with your actual HTML content)
+html_content = """
+<html>
+<head>
+    <title>Sample Page</title>
+</head>
+<body>
+    <a href="https://example.com/page1">Link 1</a>
+    <a href="https://example.com/page2">Link 2</a>
+    <a href="https://example.com/page3">Link 3</a>
+</body>
+</html>
+"""
+
+# Extract links from the HTML content
+links = extract_links(html_content)
+
+# Print the extracted links
+print("Links found on the page:")
+for link in links:
+    print(link)
